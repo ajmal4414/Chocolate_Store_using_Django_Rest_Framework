@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% load static %}
+<br><br>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+
+
+<style>
+
+$('div').each(function () {
+        var bg = $(this).data('setbg');
+        $(this).css('background-image', 'url(' + bg + ')');
+    });
+
+
+
+
+    body {
+	height: 100%;
+	font-family: "Open Sans", sans-serif;
+	-webkit-font-smoothing: antialiased;
+	font-smoothing: antialiased;
+}
+
+h6 {
+	margin: 0;
+	color: #111111;
+	font-weight: 400;
+	font-family: 'Quantico', sans-serif;
+}
+
+h5 {
+	font-size: 18px;
+}
+
+p {
+	font-size: 15px;
+	font-family: 'Open Sans', sans-serif;
+	color: #666666;
+	font-weight: 400;
+	line-height: 26px;
+	margin: 0 0 15px 0;
+}
+img {
+	max-width: 100%;
+}
+
+a:hover,
+a:focus {
+	text-decoration: none;
+	outline: none;
+	color: #fff;
+}
+
+li {
+	display: inline-block;
+	font-size: 16px;
+	padding: 14px 30px;
+	color: $white-color;
+	background: $primary-color;
+	text-transform: uppercase;
+	font-weight: 700;
+	font-family: 'Quantico', sans-serif;
+}
+
+a{
+	font-size: 15px;
+	color: $white-color;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	font-family: 'Quantico', sans-serif;
+	display: inline-block;
+	padding: 14px 30px 12px;
+	background: $primary-color;
+	border: none;
+}
+
+div {
+  background-image: url("herowp-1.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+
+</style>
+
+{% block content %}
+<head>
+  <meta charset="UTF-8">
+    <meta name="description" content="phozogy Template">
+    <meta name="keywords" content="Phozogy, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Chocolate Store</title>
+    </head>
+<hr>
+
+
+<div class="row">
+    {% for each in object_list %}
+    <div class="col-md-6 col-lg-4 col-xl-3"><br><br>
+        <div class="card" style="width:100% 20rem; background-color:rgba(245, 245, 245, 0.4); box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);transition:all 0.2s ease-in-out;         transform: translateY(-4px);box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.6);background-color: rgba(245, 245, 245, 0.8); ">
+            <img src="{{ each.image_url }}" class="card-img-top" alt="..." style="width:250px; height:228;">
+            <div class="card card-body flex-fill">
+                <h5 class="card-title">{{ each.title|slice:":25"}} ...</h5>
+                <p class="card-text">${{ each.price|floatformat:2 }}</p>
+                {% if each.choco_available is True %}
+                <li class="text-primary">Available</li>
+                {% else %}
+                <li class="text-danger">Out of stock !</li>
+                {% endif %}<br>
+                <a href="{% url 'details' each.id %}" class="button" style="...">View</a>
+            </div>
+        </div>
+    </div>
+
+
+{% endfor %}
+</div>
+{% endblock content %}
+
