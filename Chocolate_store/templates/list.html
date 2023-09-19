@@ -101,6 +101,7 @@ div {
 <div class="row">
     {% for each in object_list %}
     <div class="col-md-6 col-lg-4 col-xl-3"><br><br>
+
         <div class="card" style="width:100% 20rem; background-color:rgba(245, 245, 245, 0.4); box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);transition:all 0.2s ease-in-out;         transform: translateY(-4px);box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.6);background-color: rgba(245, 245, 245, 0.8); ">
             <img src="{{ each.image_url }}" class="card-img-top" alt="..." style="width:250px; height:228;">
             <div class="card card-body flex-fill">
@@ -119,5 +120,24 @@ div {
 
 {% endfor %}
 </div>
+
 {% endblock content %}
 
+<script>
+// JavaScript code to enhance the chocolate listing
+document.addEventListener("DOMContentLoaded", function() {
+    const chocolateCards = document.querySelectorAll(".chocolate-card");
+
+    chocolateCards.forEach(card => {
+        card.addEventListener("mouseenter", function() {
+            card.style.transform = "translateY(-8px)";
+            card.style.boxShadow = "0 12px 20px rgba(0, 0, 0, 0.6)";
+        });
+
+        card.addEventListener("mouseleave", function() {
+            card.style.transform = "translateY(0)";
+            card.style.boxShadow = "0 8px 16px rgba(0, 0, 0, 0.6)";
+        });
+    });
+});
+</script>

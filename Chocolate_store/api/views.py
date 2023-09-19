@@ -5,10 +5,11 @@ from rest_framework.permissions import AllowAny
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.response import Response
 
-from .models import Chocolate
-from .serializers import ChocoSerializer
+from .models import Chocolate,Cart
+from .serializers import ChocoSerializer,CartSerializer
 from rest_framework import mixins, permissions, status
 from rest_framework import generics
+from rest_framework.views import APIView
 
 # Create your views here.
 
@@ -31,11 +32,13 @@ def home(request):
 
 class ListChocolate(generics.ListCreateAPIView):
     renderer_classes = [TemplateHTMLRenderer]
+    # add this
+    permission_classes = [AllowAny]
     template_name='list.html'
     queryset = Chocolate.objects.all()
     serializer_class = ChocoSerializer
 
-    def list(self,request):
+    def get(self,request,**kwargs):
         queryset=self.get_queryset()
         return Response({'object_list':queryset})
 
@@ -95,3 +98,15 @@ class ChocoCheckoutView(generics.RetrieveUpdateDestroyAPIView):
     #     serializer = self.get_serializer(queryset)
     #     return Response(serializer.data)
         # return Response({'object':queryset})
+
+
+class CartAPIView(generics.ListCreateAPIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'cart.html'
+    queryset = Cart.objects.all()
+    serializer_class = CartSerializer
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
+        return Response({'carts': serializer.data})

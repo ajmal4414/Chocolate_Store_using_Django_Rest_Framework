@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1 class="cart-heading">Cart</h1>
+
+    {% for cart in carts %}
+        <div class="card-container">
+             <img src="{{ each.image_url }}" class="card-img-top" alt="..." style="width:250px; height:228;">
+            <h2 class="cart-title">Cart {{ cart.id }}</h2>
+            <table class="cart-table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Category</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Image</th> <!-- Add a new table header for the image -->
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for chocolate in cart.chocolate_items.all %}
+                        <tr>
+                            <td>{{ chocolate.title }}</td>
+                            <td>{{ chocolate.category.title }}</td>
+                            <td>{{ chocolate.description }}</td>
+                            <td>${{ chocolate.price|floatformat:2 }}</td>
+                            <td><img src="{{ each.image_url }}" alt="Chocolate Image"></td> <!-- Display the image using the image_url field -->
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <p class="cart-created-at">Cart created at: {{ cart.created_at }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}

@@ -28,7 +28,7 @@ urlpatterns = [
     # path('api/token/refresh/',jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
     # path('token/',obtain_auth_token),
     # path('jwt/token/',TokenObtainPairView.as_view()),
-    path('jwt/token/refresh/',TokenRefreshView.as_view()),
+    # path('jwt/token/refresh/',TokenRefreshView.as_view()),
 
 ]
 
